@@ -103,10 +103,14 @@ const splitDocBulk = async (data, input, path) => {
 	fs.writeFileSync(`./Output/${path}/Other.pdf`, await otherDoc.save());
 };
 
-let inputPath = await errorCheck();
-let pageText = await pdfToArray(`./Input/${inputPath}`);
-let listInfo = await listProperties(pageText[0]);
-let listPath = await outputStructure(listInfo);
-let pageInfo = await getPageData(pageText);
-let writeLegs = await splitDocEach(pageInfo, inputPath, listPath);
-// let writeLegs = await splitDocBulk(pageInfo, inputPath, listPath)
+let listDicer = async () => {
+	let inputPath = await errorCheck();
+	let pageText = await pdfToArray(`./Input/${inputPath}`);
+	let listInfo = await listProperties(pageText[0]);
+	let listPath = await outputStructure(listInfo);
+	let pageInfo = await getPageData(pageText);
+	let writeLegs = await splitDocEach(pageInfo, inputPath, listPath);
+	// let writeLegs = await splitDocBulk(pageInfo, inputPath, listPath)
+};
+
+listDicer();
