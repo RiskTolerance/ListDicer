@@ -29,6 +29,7 @@ export const pdfToArray = async (url) => {
 		for (let i = 0; i < texts.length; i++) {
 			texts[i] = texts[i].replace(/\s+/g, ' ').trim();
 		}
+		// console.log(texts);
 		return texts;
 	});
 };

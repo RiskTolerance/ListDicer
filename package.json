@@ -2,6 +2,7 @@
 	"type": "module",
 	"dependencies": {
 		"chalk": "^5.0.0",
+		"cli-progress": "^3.10.0",
 		"pdf-lib": "^1.17.1",
 		"pdfjs-dist": "^2.10.377"
 	}

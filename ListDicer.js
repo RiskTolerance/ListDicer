@@ -108,7 +108,7 @@ let listDicer = async () => {
 	let pageText = await pdfToArray(`./Input/${inputPath}`);
 	let listInfo = await listProperties(pageText[0]);
 	let listPath = await outputStructure(listInfo);
-	let pageInfo = await getPageData(pageText);
+	let pageInfo = await getPageData(pageText, listInfo.line);
 	let writeLegs = await splitDocEach(pageInfo, inputPath, listPath);
 	// let writeLegs = await splitDocBulk(pageInfo, inputPath, listPath)
 };

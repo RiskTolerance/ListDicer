@@ -1,5 +1,5 @@
 // iterate through pages and collect data for each page
-export const getPageData = async (list) => {
+export const getPageData = async (list, line) => {
 	let pageInfo = [];
 	list.map((page, pageNumber) => {
 		let data = {
@@ -17,8 +17,13 @@ export const getPageData = async (list) => {
 		const priorityMatch = page.match(priorityRegex);
 		data.priority = priorityMatch[1];
 		// check for a leg descriptor
-		const legTextRegex =
-			/(COVER ASY)|(CNC) CUT|(SIDERAILS).*(?:SAW|RL PNCH1|HOOK INST)|(STRIP CUT)TER/; // (HDRFR)|(HDRRR)|(BOWFR)|(BOWFM)|(BOWRR)|(BOWRM)|(HDRSBOWS)
+		let legTextRegex = (() => {
+			if (line === 'HC') {
+				return /(SLAT ASY)|(CNC) CUT|(SIDERAILS).*(?:SAW|RL PNCH1|HOOK INST)|(STRIP CUT)TER/;
+			} else {
+				return /(COVER ASY)|(CNC) CUT|(SIDERAILS).*(?:SAW|RL PNCH1|HOOK INST)|(STRIP CUT)TER/;
+			}
+		})();
 		let legTextMatch = page.match(legTextRegex);
 		if (legTextMatch) {
 			legTextMatch = legTextMatch.filter((x) => x !== undefined);
@@ -28,5 +33,6 @@ export const getPageData = async (list) => {
 		data.page = pageNumber + 1;
 		pageInfo.push(data);
 	});
+	// console.log(pageInfo);
 	return pageInfo;
 };
